@@ -61,8 +61,7 @@ const obtenerDatosUsuario = async (req, res) => {
         let { id } = req.params
 
         const user = await datosUsuarioModelo.
-        findOne({'usuario':id}).select('-passwordHash')
-        .populate('usuario')
+        findOne({'usuario':id}).populate('usuario')
         .exec((err, user) => {
             //console.log(user);
             res.status(200);
