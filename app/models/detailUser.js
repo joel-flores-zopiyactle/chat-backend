@@ -2,6 +2,12 @@ const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
 
 const DetailUserSchema = new mongoose.Schema({
+    apellidoPat: { 
+      type: String 
+    },
+    apellidoMat: { 
+      type: String 
+    },
     telefono: { 
       type: Number, min: 10
     },

@@ -30,4 +30,5 @@ const obtenerContactoId = async (req, res) => {
     }
 }
 
+
 module.exports = { agregarContacto, obtenerContactoId }
