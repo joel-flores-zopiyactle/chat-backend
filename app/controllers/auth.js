@@ -1,6 +1,6 @@
 const usuarioModelo = require('../models/user')
 const datosUsuarioModelo = require('../models/detailUser')
-const resError = require('../helpers/handleError')
+//const resError = require('../helpers/handleError')
 
 // Create account
 const crearCuenta = async (req, res) => {
@@ -30,7 +30,8 @@ const crearCuenta = async (req, res) => {
         res.status(201).send({ data: detailUser});
 
     } catch (error) {
-        resError(res, error)
+        //resError(res, error)
+        console.log(error);
     }
 
 }
@@ -60,7 +61,8 @@ const iniciarSesion = async (req, res) => {
        
 
     } catch (error) {
-        resError(res, error)
+        //resError(res, error)
+        console.log(error);
     }
 }
 
@@ -94,7 +96,8 @@ const obtenerDatosUsuario = async (req, res) => {
         });        
 
     } catch (error) {
-        resError(res, error)
+        //resError(res, error)
+        console.log(error);
     }
 }
 
@@ -127,7 +130,8 @@ const obtenerDatosContacto = async (req, res) => {
         });        
 
     } catch (error) {
-        resError(res, error)
+        //resError(res, error)
+        console.log(error);
     }
 }
 

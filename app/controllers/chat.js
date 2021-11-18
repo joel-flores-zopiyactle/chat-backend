@@ -1,5 +1,5 @@
 const messageModel = require('./../models/messages')
-const resError = require('../helpers/handleError')
+//const resError = require('../helpers/handleError')
 
 const enviarMensaje = async (req, res) => {
 
@@ -16,7 +16,8 @@ const enviarMensaje = async (req, res) => {
         });
 
     } catch (error) {
-        resError(res, error)
+       // resError(res, error)
+        console.log(error);
     }
 
 }
@@ -33,7 +34,8 @@ const todosLosMensajes =  async (req, res) => {
         });
 
     } catch (error) {
-        resError(res, error)
+        //resError(res, error)
+        console.log(error);
     }
 }
 
