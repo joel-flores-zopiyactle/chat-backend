@@ -1,4 +1,4 @@
-require('dotenv').config()
+const config = require('../../config/config')
 const mongoose = require('mongoose')
 const {Schema} = require('mongoose')
 
@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
   });
 
   UserSchema.methods.setImagen = function setImagen(fileName) {
-  this.imagen = `${__dirname}${fileName}`;
+    this.imagen = `${config.HOST}:${config.PORT}/public/${fileName}`;
   }
 
   module.exports = mongoose.model('usuario', UserSchema)

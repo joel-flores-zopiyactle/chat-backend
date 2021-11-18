@@ -1,4 +1,5 @@
 const contactoModelo = require('../models/contact')
+const resError = require('../helpers/handleError')
 
 const agregarContacto = async (req, res) => {
     try {
@@ -12,7 +13,7 @@ const agregarContacto = async (req, res) => {
         res.send({ data: nuevoContacto});
 
     } catch (error) {
-        
+        resError(res, error)
     }
 }
 
@@ -21,12 +22,12 @@ const obtenerContactoId = async (req, res) => {
     try {
         
         const id = req.params.id
-        const contacto = await contactoModelo.find({usuario_id: id})
-        res.status(201);
+        const contacto = await contactoModelo.findOne({usuario_id: id})
+        res.status(200);
         res.send(contacto);
 
     } catch (error) {
-        console.log(error);
+        resError(res, error)
     }
 }
 

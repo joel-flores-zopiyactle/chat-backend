@@ -1,4 +1,5 @@
 const messageModel = require('./../models/messages')
+const resError = require('../helpers/handleError')
 
 const enviarMensaje = async (req, res) => {
 
@@ -9,13 +10,13 @@ const enviarMensaje = async (req, res) => {
             mensaje, usuario_id, recibido_id
         }) 
 
-        res.status(200);
+        res.status(201);
         res.send({
             data: newMessage
         });
 
     } catch (error) {
-        
+        resError(res, error)
     }
 
 }
@@ -32,7 +33,7 @@ const todosLosMensajes =  async (req, res) => {
         });
 
     } catch (error) {
-        
+        resError(res, error)
     }
 }
 

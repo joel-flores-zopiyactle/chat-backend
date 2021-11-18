@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
 const dbConnect = () => {
-    const URI_DB = process.env.URL_DB
-
+  
     mongoose.connect('mongodb+srv://admin123:12345678joel@iventas.geh69.mongodb.net/iVentasDB?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true

@@ -1,5 +1,6 @@
 const usuarioModelo = require('../models/user')
 const datosUsuarioModelo = require('../models/detailUser')
+const resError = require('../helpers/handleError')
 
 // Create account
 const crearCuenta = async (req, res) => {
@@ -16,7 +17,7 @@ const crearCuenta = async (req, res) => {
         })
 
         if(req.file) {
-            nuevoUsuario.setImagen(req.file.path)
+            nuevoUsuario.setImagen(req.file.filename)
         }
 
         const usuarioSave = await nuevoUsuario.save()
@@ -26,10 +27,10 @@ const crearCuenta = async (req, res) => {
             apellidoPat, apellidoMat, telefono, edad, prioridad, problema, curp, usuario: usuarioSave.id
         })
 
-        res.send({ data: detailUser});
+        res.status(201).send({ data: detailUser});
 
     } catch (error) {
-        console.log(error);
+        resError(res, error)
     }
 
 }
@@ -43,14 +44,14 @@ const iniciarSesion = async (req, res) => {
 
         if(usuario.correo === correo && usuario.password === password) {
 
-            res.status(201);
-            res.send({
+            res.status(200);
+            res.json({
                 data: usuario
             });
 
         } else {
             
-            res.status(401);
+            res.status(204);
             res.send({
                 error: 'Los datos son incorrectos'
             });
@@ -59,7 +60,7 @@ const iniciarSesion = async (req, res) => {
        
 
     } catch (error) {
-        
+        resError(res, error)
     }
 }
 
@@ -70,18 +71,65 @@ const obtenerDatosUsuario = async (req, res) => {
         let { id } = req.params
 
         const user = await datosUsuarioModelo.
-        findOne({'usuario':id}).populate('usuario')
+        findOne({'usuario':id}).populate('usuario', {
+            _id: 1, 
+            nombre: 1, 
+            imagen: 1, 
+        }
+        )
         .exec((err, user) => {
-            //console.log(user);
+           if(!err) {
+                //console.log(user);
             res.status(200);
             res.json(user);
+           } else {
+            res.status(204).send(
+                {
+                    error: "No se encontraron datos del contacto"
+                }
+            );
+           }
+
+           
         });        
 
     } catch (error) {
-        console.log(error);
-        res.send({erro: error});
+        resError(res, error)
+    }
+}
+
+const obtenerDatosContacto = async (req, res) => {
+    
+    try {
+
+        let { id } = req.params
+
+        const user = await datosUsuarioModelo.
+        findOne({'usuario':id}).populate('usuario', {
+            nombre: 1, 
+            imagen: 1, 
+            correo: 1, 
+        })
+        .exec((err, user) => {
+           if(!err) {
+                //console.log(user);
+            res.status(200);
+            res.json(user);
+           } else {
+            res.status(204).send(
+                {
+                    error: "No se encontraron datos del contacto"
+                }
+            );
+           }
+
+           
+        });        
+
+    } catch (error) {
+        resError(res, error)
     }
 }
 
 
-module.exports = { crearCuenta, iniciarSesion, obtenerDatosUsuario }
+module.exports = { crearCuenta, iniciarSesion, obtenerDatosUsuario, obtenerDatosContacto }
