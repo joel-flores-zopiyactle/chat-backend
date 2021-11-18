@@ -1,5 +1,7 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 const {Schema} = require('mongoose')
+
 
 const UserSchema = new mongoose.Schema({
     nombre: { 
@@ -19,5 +21,9 @@ const UserSchema = new mongoose.Schema({
     timestamps: true,
     versionKey: false
   });
+
+  UserSchema.methods.setImagen = function setImagen(fileName) {
+  this.imagen = `${__dirname}${fileName}`;
+  }
 
   module.exports = mongoose.model('usuario', UserSchema)

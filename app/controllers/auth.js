@@ -1,20 +1,29 @@
 const usuarioModelo = require('../models/user')
 const datosUsuarioModelo = require('../models/detailUser')
-const contactosModelo = require('../models/contact')
 
 // Create account
 const crearCuenta = async (req, res) => {
     
     try {
-        const {nombre, imagen, correo, password} = req.body
+        const {nombre, correo, password} = req.body
+        const archivo = req.file
         const {apellidoPat, apellidoMat, telefono, edad, prioridad, problema, curp} = req.body
-
-        const nuevoUsuario = await usuarioModelo.create({
+        
+        const imagen = archivo.path
+      
+        const nuevoUsuario = await usuarioModelo({
             nombre, imagen, correo, password 
         })
 
+        if(req.file) {
+            nuevoUsuario.setImagen(req.file.path)
+        }
+
+        const usuarioSave = await nuevoUsuario.save()
+        console.log(usuarioSave)
+
         const detailUser = await datosUsuarioModelo.create({
-            apellidoPat, apellidoMat, telefono, edad, prioridad, problema, curp, usuario: nuevoUsuario.id
+            apellidoPat, apellidoMat, telefono, edad, prioridad, problema, curp, usuario: usuarioSave.id
         })
 
         res.send({ data: detailUser});

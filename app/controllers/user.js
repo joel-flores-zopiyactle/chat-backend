@@ -9,7 +9,7 @@ const agregarContacto = async (req, res) => {
             usuario_id, contacto_id
         })
 
-        res.send({ 'data': nuevoContacto});
+        res.send({ data: nuevoContacto});
 
     } catch (error) {
         

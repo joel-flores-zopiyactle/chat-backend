@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
 const app = express()
 app.use(cors())
 const bodyParser = require('body-parser')
@@ -11,6 +12,9 @@ const {dbConnect} = require('./config/mongo')
 const PORT = process.env.PORT || 3000
 
 app.use(bodyParser.json());
+
+app.use('/public', express.static(`${__dirname}/strage/img`)) 
+
 app.use('/api', require('./app/routes'));
 /* Inicializar servidor */
 dbConnect() 
