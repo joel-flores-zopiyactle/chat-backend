@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const dbConnect = () => {
   
-    mongoose.connect('mongodb+srv://admin123:12345678joel@iventas.geh69.mongodb.net/iVentasDB?retryWrites=true&w=majority', {
+    mongoose.connect('mongodb+srv://joel13:12345678joel@iventas.geh69.mongodb.net/i-ventas?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }, (err, res) => {
